@@ -1,3 +1,6 @@
+Installation & Setup:
+http://efxclipse.bestsolution.at/install.html#all-in-one
+
 Twitch Messaging Interface:
 https://github.com/justintv/Twitch-API/blob/master/IRC.md
 
@@ -10,3 +13,5 @@ http://docs.oracle.com/javase/7/docs/api/java/net/URLConnection.html
 JavaFX
 http://javatutorialhq.com/javafx/hello-world/
 https://docs.oracle.com/javase/8/javafx/get-started-tutorial/get_start_apps.htm
+
+http://code.makery.ch/library/javafx-8-tutorial/part1/
