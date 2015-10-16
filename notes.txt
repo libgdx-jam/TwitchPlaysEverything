@@ -1,0 +1,5 @@
+Twitch Messaging Interface:
+https://github.com/justintv/Twitch-API/blob/master/IRC.md
+
+Simple IRC Client:
+http://archive.oreilly.com/pub/h/1966
