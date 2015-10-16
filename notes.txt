@@ -3,3 +3,6 @@ https://github.com/justintv/Twitch-API/blob/master/IRC.md
 
 Simple IRC Client:
 http://archive.oreilly.com/pub/h/1966
+
+Http requests
+http://docs.oracle.com/javase/7/docs/api/java/net/URLConnection.html
