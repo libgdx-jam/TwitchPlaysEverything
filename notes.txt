@@ -6,3 +6,7 @@ http://archive.oreilly.com/pub/h/1966
 
 Http requests
 http://docs.oracle.com/javase/7/docs/api/java/net/URLConnection.html
+
+JavaFX
+http://javatutorialhq.com/javafx/hello-world/
+https://docs.oracle.com/javase/8/javafx/get-started-tutorial/get_start_apps.htm
