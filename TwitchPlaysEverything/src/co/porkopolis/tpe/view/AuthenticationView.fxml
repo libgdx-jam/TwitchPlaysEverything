@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" styleClass="background" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Text fill="WHITE" layoutX="385.0" layoutY="183.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label-header" text="Hello," textAlignment="CENTER" />
+      <TextField layoutX="333.0" layoutY="209.0" promptText="Enter username..." />
+      <PasswordField layoutX="333.0" layoutY="254.0" promptText="Enter password..." />
+      <CheckBox layoutX="342.0" layoutY="300.0" mnemonicParsing="false" text="Remember me" />
+      <Button layoutX="444.0" layoutY="336.0" mnemonicParsing="false" text="Login" />
+      <Button layoutX="345.0" layoutY="336.0" mnemonicParsing="false" text="Donate" />
+   </children>
+</AnchorPane>
