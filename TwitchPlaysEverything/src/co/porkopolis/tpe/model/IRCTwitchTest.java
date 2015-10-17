@@ -1,16 +1,19 @@
 package co.porkopolis.tpe.model;
 
+import java.awt.Desktop;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.UnknownHostException;
 
 public class IRCTwitchTest {
 
-	public void connect() throws UnknownHostException, IOException {
+	public void connect() throws UnknownHostException, IOException, URISyntaxException {
 
 		// The server to connect to and our details.
 		String server = "irc.twitch.tv";
