@@ -7,13 +7,27 @@ import java.net.URISyntaxException;
 
 public class TwitchAuth {
 
-	public static void main(String[] args) throws IOException, URISyntaxException {
+	String clientID;
+	String redirectURL;
+	String scope;
+	final static String state = "secretrandomstring";
+
+	public String uri;
+
+	public void authorize(String clientID, String redirectURL, String scope, String state)
+			throws IOException, URISyntaxException {
 		if (Desktop.isDesktopSupported()) {
-			Desktop.getDesktop()
-					.browse(new URI(
-							"https://api.twitch.tv/kraken/oauth2/authorize?response_type=token&client_id=sxw2y2lnhn74npb8qwdp5vmyviv7mus&redirect_uri=http:/"
-									+ "/localhost&scope=chat_login"));
+			uri = "https://api.twitch.tv/kraken/oauth2/authorize?response_type=code&client_id=" + clientID
+					+ "&redirect_uri=" + redirectURL + "&scope=" + scope + "&state=" + state;
+
+			Desktop.getDesktop().browse(new URI(uri));
 		}
+
+	}
+
+	public static void main(String[] args) throws IOException, URISyntaxException {
+		TwitchAuth twitch = new TwitchAuth();
+		twitch.authorize("sxw2y2lnhn74npb8qwdp5vmyviv7mus", "http://localhost", "chat_login", state);
 	}
 
 }

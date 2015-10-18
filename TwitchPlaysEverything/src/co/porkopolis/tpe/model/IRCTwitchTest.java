@@ -1,13 +1,11 @@
 package co.porkopolis.tpe.model;
 
-import java.awt.Desktop;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.UnknownHostException;
 
@@ -17,11 +15,11 @@ public class IRCTwitchTest {
 
 		// The server to connect to and our details.
 		String server = "irc.twitch.tv";
-		String nick = "simple_bot";
-		String login = "simple_bot";
+		String nick = "twitchcanplayit";
+		String login = "twitchcanplayit";
 
 		// The channel which the bot will join.
-		String channel = "#irchacks";
+		String channel = "#twitchcanplayit";
 
 		// Connect directly to the IRC server.
 		Socket socket = new Socket(server, 6667);
@@ -29,7 +27,7 @@ public class IRCTwitchTest {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
 		// Log on to the server.
-		writer.write("NICK " + nick + "\r\n");
+		writer.write("NICK " + nick.toLowerCase() + "\r\n");
 		writer.write("USER " + login + " 8 * : Java IRC Hacks Bot\r\n");
 		writer.flush();
 
@@ -61,6 +59,11 @@ public class IRCTwitchTest {
 				System.out.println(line);
 			}
 		}
+	}
+
+	public static void main(String[] args) throws UnknownHostException, IOException, URISyntaxException {
+		IRCTwitchTest test = new IRCTwitchTest();
+		test.connect();
 	}
 
 }
