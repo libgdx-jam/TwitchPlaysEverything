@@ -17,3 +17,5 @@ https://docs.oracle.com/javase/8/javafx/get-started-tutorial/get_start_apps.htm
 http://code.makery.ch/library/javafx-8-tutorial/part1/
 http://code.makery.ch/library/javafx-8-tutorial/part4/
 
+https://blogs.oracle.com/jmxetc/entry/connecting_scenebuilder_edited_fxml_to
+

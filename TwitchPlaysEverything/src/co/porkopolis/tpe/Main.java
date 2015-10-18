@@ -2,6 +2,7 @@ package co.porkopolis.tpe;
 
 import java.io.IOException;
 
+import co.porkopolis.tpe.controller.TestController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -12,6 +13,8 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
 	private Stage primaryStage;
+
+	TestController controller = new TestController();
 
 	@Override
 	public void start(Stage primaryStage) {
