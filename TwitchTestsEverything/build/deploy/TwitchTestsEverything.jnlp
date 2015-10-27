@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="TwitchTestsEverything.jnlp">
+  <information>
+    <title>TwitchTestsEverything</title>
+    <vendor>porkopolis.co</vendor>
+    <description>Sample JavaFX 2.0 application.</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="TwitchTestsEverything.jar" size="17020" download="eager" />
+    <jar href="libs/pircbot.jar" size="76700" download="eager" />
+  </resources>
+  <jfx:javafx-desc  width="0" height="0" main-class="test.MainApp"  name="Address App" />
+  <update check="background"/>
+</jnlp>
