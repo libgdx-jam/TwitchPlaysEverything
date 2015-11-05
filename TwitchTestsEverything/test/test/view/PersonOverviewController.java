@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import test.MainApp;
 import test.model.Person;
 import test.util.DateUtil;
@@ -14,7 +15,11 @@ import test.util.DateUtil;
 public class PersonOverviewController {
 
 	@FXML
+	private TextField chatTextField;
+
+	@FXML
 	private TextArea chatTextArea;
+
 	@FXML
 	private TableView<Person> personTable;
 	@FXML
@@ -162,13 +167,15 @@ public class PersonOverviewController {
 		}
 	}
 
-
 	/**
-	 * Called when the user clicks the send button. Sends the text message specified through Twitch IRC.
-	 * */
+	 * Called when the user clicks the send button. Sends the text message
+	 * specified through Twitch IRC.
+	 */
 	@FXML
-	private void handleSendMessage(){
-
+	private void handleSendMessage() {
+		String message = chatTextArea.getText();
+		System.out.println(message);
+		chatTextField.setText(message);
 	}
 
 }
