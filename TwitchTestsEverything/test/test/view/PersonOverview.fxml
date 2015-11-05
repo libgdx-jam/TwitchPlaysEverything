@@ -21,13 +21,13 @@
          <children>
             <AnchorPane styleClass="background">
                <children>
-                  <TextField fx:id="chatTextField" editable="false" layoutX="14.0" layoutY="14.0" prefHeight="296.0" prefWidth="272.0" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
+                  <TextArea fx:id="chatTextArea" layoutX="14.0" layoutY="14.0" maxHeight="-Infinity" prefHeight="398.0" prefWidth="272.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0" />
+                  <Button layoutX="205.0" layoutY="353.0" mnemonicParsing="false" onAction="#handleSendMessage" text="Send" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0" />
+                  <TextField fx:id="chatTextField" layoutX="14.0" layoutY="423.0" prefHeight="56.0" prefWidth="180.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0">
                      <padding>
                         <Insets bottom="14.0" />
                      </padding>
                   </TextField>
-                  <TextArea fx:id="chatTextArea" layoutX="14.0" layoutY="316.0" maxHeight="-Infinity" prefHeight="62.0" prefWidth="185.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="114.0" />
-                  <Button layoutX="205.0" layoutY="353.0" mnemonicParsing="false" onAction="#handleSendMessage" text="Send" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" GridPane.columnIndex="1">

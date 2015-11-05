@@ -15,10 +15,10 @@ import test.util.DateUtil;
 public class PersonOverviewController {
 
 	@FXML
-	private TextField chatTextField;
+	private TextArea chatTextArea;
 
 	@FXML
-	private TextArea chatTextArea;
+	private TextField chatTextField;
 
 	@FXML
 	private TableView<Person> personTable;
@@ -67,6 +67,7 @@ public class PersonOverviewController {
 		// changed.
 		personTable.getSelectionModel().selectedItemProperty()
 				.addListener((observable, oldValue, newValue) -> showPersonDetails(newValue));
+
 	}
 
 	/**
@@ -173,9 +174,15 @@ public class PersonOverviewController {
 	 */
 	@FXML
 	private void handleSendMessage() {
-		String message = chatTextArea.getText();
+		String message = chatTextField.getText();
 		System.out.println(message);
-		chatTextField.setText(message);
+		// chatTextField.setText(message);
+
+		addMessage("\n" + message);
+	}
+
+	public void addMessage(String text) {
+		chatTextArea.appendText(text);
 	}
 
 }
