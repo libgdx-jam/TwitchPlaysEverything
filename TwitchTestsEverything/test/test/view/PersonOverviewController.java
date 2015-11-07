@@ -1,5 +1,13 @@
 package test.view;
 
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
+import java.io.IOException;
+
+import org.jibble.pircbot.IrcException;
+import org.jibble.pircbot.NickAlreadyInUseException;
+import org.jibble.pircbot.PircBot;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -13,6 +21,10 @@ import test.model.Person;
 import test.util.DateUtil;
 
 public class PersonOverviewController {
+
+	/*
+	 * @FXML initializes by referencing our scene builder objects
+	 */
 
 	@FXML
 	private TextArea chatTextArea;
@@ -42,6 +54,9 @@ public class PersonOverviewController {
 
 	// Reference to the main application.
 	private MainApp mainApp;
+
+	// Reference to our irc bot
+	private TwitchBot bot;
 
 	/**
 	 * The constructor. The constructor is called before the initialize()
@@ -178,11 +193,150 @@ public class PersonOverviewController {
 		System.out.println(message);
 		// chatTextField.setText(message);
 
-		addMessage("\n" + message);
+		addMessage(bot.getName() + " " + message);
+		if (bot != null) {
+			bot.sendMessage("#TwitchCanPlayIt".toLowerCase(), message);
+		} else {
+			handleConnect();
+			handleSendMessage();
+		}
 	}
 
 	public void addMessage(String text) {
-		chatTextArea.appendText(text);
+		chatTextArea.appendText("\n" + text);
 	}
 
+	public void log(String string) {
+		addMessage("Error: " + string);
+	}
+
+	public void handleConnect() {
+		if (bot == null) {
+			bot = new TwitchBot(this);
+			bot.setVerbose(true);
+			try {
+				bot.connect("irc.twitch.tv", 6667, "oauth:6kl7e8tg2x6khrpx6mizmzewt8hr8h");
+			} catch (NickAlreadyInUseException e) {
+				addMessage(e.getStackTrace().toString());
+				bot = null;
+			} catch (IOException e) {
+				addMessage(e.getStackTrace().toString());
+				bot = null;
+			} catch (IrcException e) {
+				addMessage(e.getStackTrace().toString());
+				bot = null;
+			}
+
+			bot.joinChannel("#TwitchCanPlayIt".toLowerCase());
+			addMessage(bot.getName() + " joined #TwitchCanPlayIt successfully.");
+
+		} else {
+			log("You are already connected.");
+		}
+	}
+
+}
+
+class TwitchBot extends PircBot {
+
+	private PersonOverviewController controller;
+
+	public TwitchBot(PersonOverviewController controller) {
+		this.setName("TwitchCanPlayIt");
+		this.controller = controller;
+	}
+
+	public void onMessage(String channel, String sender, String login, String hostname, String message) {
+		controller.addMessage(sender + ": " + message);
+		// Change the section that says VK_[key] to correspond to your game
+		// controls, but don't get rid of the VK_
+		if (message.equalsIgnoreCase("up")) {
+			try {
+				Robot r = new Robot();
+				r.keyPress(KeyEvent.VK_W);
+				r.keyRelease(KeyEvent.VK_W);
+
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+
+		if (message.equalsIgnoreCase("down")) {
+			try {
+				Robot r = new Robot();
+				r.keyPress(KeyEvent.VK_S);
+				r.keyRelease(KeyEvent.VK_S);
+
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+
+		if (message.equalsIgnoreCase("left")) {
+			try {
+				Robot r = new Robot();
+				r.keyPress(KeyEvent.VK_A);
+				r.keyRelease(KeyEvent.VK_A);
+
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+
+		if (message.equalsIgnoreCase("right")) {
+			try {
+				Robot r = new Robot();
+				r.keyPress(KeyEvent.VK_D);
+				r.keyRelease(KeyEvent.VK_D);
+
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+
+		if (message.equalsIgnoreCase("b")) {
+			try {
+				Robot r = new Robot();
+				r.keyPress(KeyEvent.VK_Z);
+				r.keyRelease(KeyEvent.VK_Z);
+
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+
+		if (message.equalsIgnoreCase("a")) {
+			try {
+				Robot r = new Robot();
+				r.keyPress(KeyEvent.VK_X);
+				r.keyRelease(KeyEvent.VK_X);
+
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+
+		if (message.equalsIgnoreCase("start")) {
+			try {
+				Robot r = new Robot();
+				r.keyPress(KeyEvent.VK_E);
+				r.keyRelease(KeyEvent.VK_E);
+
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+
+		if (message.equalsIgnoreCase("select")) {
+			try {
+				Robot r = new Robot();
+				r.keyPress(KeyEvent.VK_Q);
+				r.keyRelease(KeyEvent.VK_Q);
+
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+
+	}
 }
