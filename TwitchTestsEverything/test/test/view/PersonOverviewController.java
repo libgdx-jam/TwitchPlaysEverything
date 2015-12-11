@@ -1,13 +1,11 @@
 package test.view;
 
-import java.awt.Robot;
-import java.awt.event.KeyEvent;
 import java.io.IOException;
 
 import org.jibble.pircbot.IrcException;
 import org.jibble.pircbot.NickAlreadyInUseException;
-import org.jibble.pircbot.PircBot;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -16,6 +14,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import test.MainApp;
 import test.model.KeyBind;
 
@@ -73,6 +73,15 @@ public class PersonOverviewController {
 		// changed.
 		personTable.getSelectionModel().selectedItemProperty()
 				.addListener((observable, oldValue, newValue) -> showPersonDetails(newValue));
+
+		chatTextField.setOnKeyReleased(new EventHandler<KeyEvent>() {
+			@Override
+			public void handle(KeyEvent keyEvent) {
+				if (keyEvent.getCode() == KeyCode.ENTER) {
+					handleSendMessage();
+				}
+			}
+		});
 
 	}
 
@@ -179,12 +188,12 @@ public class PersonOverviewController {
 	@FXML
 	private void handleSendMessage() {
 		String message = chatTextField.getText();
-		System.out.println(message);
-		// chatTextField.setText(message);
 
-		addMessage(bot.getName() + ": " + message);
 		if (bot != null && bot.isConnected()) {
+			addMessage(bot.getName() + ": " + message);
 			bot.sendMessage("#TwitchCanPlayIt".toLowerCase(), message);
+			chatTextField.setText("");
+
 		} else {
 			handleConnect();
 			handleSendMessage();

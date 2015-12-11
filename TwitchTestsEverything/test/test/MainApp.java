@@ -43,12 +43,12 @@ public class MainApp extends Application {
 	 */
 	public MainApp() {
 		// Add some sample data
-		personData.add(new KeyBind("Hans", "Muster"));
-		personData.add(new KeyBind("Ruth", "Mueller"));
-		personData.add(new KeyBind("Heinz", "Kurz"));
-		personData.add(new KeyBind("Cornelia", "Meier"));
-		personData.add(new KeyBind("Werner", "Meyer"));
-		personData.add(new KeyBind("Lydia", "Kunz"));
+		personData.add(new KeyBind("Up", "up"));
+		personData.add(new KeyBind("down", "down"));
+		personData.add(new KeyBind("left", "left"));
+		personData.add(new KeyBind("right", "right"));
+		personData.add(new KeyBind("Enter", "enter"));
+		personData.add(new KeyBind("Escape", "escape"));
 		personData.add(new KeyBind("Anna", "Best"));
 		personData.add(new KeyBind("Stefan", "Meier"));
 		personData.add(new KeyBind("Martin", "Mueller"));
@@ -66,7 +66,7 @@ public class MainApp extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
-		this.primaryStage.setTitle("AddressApp");
+		this.primaryStage.setTitle("Twitch Plays Anything");
 
 		this.primaryStage.getIcons().add(new Image("file:images/icon.png"));
 
