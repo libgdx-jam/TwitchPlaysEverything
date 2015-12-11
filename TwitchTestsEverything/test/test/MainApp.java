@@ -20,38 +20,38 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import test.model.Person;
+import test.model.KeyBind;
 import test.model.PersonListWrapper;
 import test.view.PersonEditDialogController;
 import test.view.PersonOverviewController;
 import test.view.RootLayoutController;
+import test.view.TwitchBot;
 
 public class MainApp extends Application {
 
 	private Stage primaryStage;
 	private BorderPane rootLayout;
+	private TwitchBot bot;
 
 	/**
 	 * The data as an observable list of Persons.
 	 */
-	private ObservableList<Person> personData = FXCollections.observableArrayList();
-	
-	private ObservableList keyBindData = FXCollections.observableArrayList();
+	private ObservableList<KeyBind> personData = FXCollections.observableArrayList();
 
 	/**
 	 * Constructor
 	 */
 	public MainApp() {
 		// Add some sample data
-		personData.add(new Person("Hans", "Muster"));
-		personData.add(new Person("Ruth", "Mueller"));
-		personData.add(new Person("Heinz", "Kurz"));
-		personData.add(new Person("Cornelia", "Meier"));
-		personData.add(new Person("Werner", "Meyer"));
-		personData.add(new Person("Lydia", "Kunz"));
-		personData.add(new Person("Anna", "Best"));
-		personData.add(new Person("Stefan", "Meier"));
-		personData.add(new Person("Martin", "Mueller"));
+		personData.add(new KeyBind("Hans", "Muster"));
+		personData.add(new KeyBind("Ruth", "Mueller"));
+		personData.add(new KeyBind("Heinz", "Kurz"));
+		personData.add(new KeyBind("Cornelia", "Meier"));
+		personData.add(new KeyBind("Werner", "Meyer"));
+		personData.add(new KeyBind("Lydia", "Kunz"));
+		personData.add(new KeyBind("Anna", "Best"));
+		personData.add(new KeyBind("Stefan", "Meier"));
+		personData.add(new KeyBind("Martin", "Mueller"));
 	}
 
 	/**
@@ -59,7 +59,7 @@ public class MainApp extends Application {
 	 *
 	 * @return
 	 */
-	public ObservableList<Person> getPersonData() {
+	public ObservableList<KeyBind> getPersonData() {
 		return personData;
 	}
 
@@ -121,6 +121,12 @@ public class MainApp extends Application {
 
 			// Give the controller access to the main app.
 			PersonOverviewController controller = loader.getController();
+
+			if (bot == null) {
+				bot = new TwitchBot(controller, this);
+				bot.setVerbose(true);
+			}
+
 			controller.setMainApp(this);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -136,7 +142,7 @@ public class MainApp extends Application {
 	 *            the person object to be edited
 	 * @return true if the user clicked OK, false otherwise.
 	 */
-	public boolean showPersonEditDialog(Person person) {
+	public boolean showPersonEditDialog(KeyBind person) {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
@@ -276,5 +282,9 @@ public class MainApp extends Application {
 
 			alert.showAndWait();
 		}
+	}
+
+	public TwitchBot getTwitchBot() {
+		return bot;
 	}
 }

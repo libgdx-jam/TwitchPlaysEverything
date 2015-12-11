@@ -17,8 +17,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import test.MainApp;
-import test.model.Person;
-import test.util.DateUtil;
+import test.model.KeyBind;
 
 public class PersonOverviewController {
 
@@ -33,24 +32,16 @@ public class PersonOverviewController {
 	private TextField chatTextField;
 
 	@FXML
-	private TableView<Person> personTable;
+	private TableView<KeyBind> personTable;
 	@FXML
-	private TableColumn<Person, String> firstNameColumn;
+	private TableColumn<KeyBind, String> firstNameColumn;
 	@FXML
-	private TableColumn<Person, String> lastNameColumn;
+	private TableColumn<KeyBind, String> lastNameColumn;
 
 	@FXML
 	private Label firstNameLabel;
 	@FXML
 	private Label lastNameLabel;
-	@FXML
-	private Label streetLabel;
-	@FXML
-	private Label postalCodeLabel;
-	@FXML
-	private Label cityLabel;
-	@FXML
-	private Label birthdayLabel;
 
 	// Reference to the main application.
 	private MainApp mainApp;
@@ -92,9 +83,14 @@ public class PersonOverviewController {
 	 */
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
+		this.bot = mainApp.getTwitchBot();
 
 		// Add observable list data to the table
 		personTable.setItems(mainApp.getPersonData());
+	}
+
+	public MainApp getMainApp() {
+		return mainApp;
 	}
 
 	/**
@@ -104,24 +100,16 @@ public class PersonOverviewController {
 	 * @param person
 	 *            the person or null
 	 */
-	private void showPersonDetails(Person person) {
+	private void showPersonDetails(KeyBind person) {
 		if (person != null) {
 			// Fill the labels with info from the person object.
 			firstNameLabel.setText(person.getFirstName());
 			lastNameLabel.setText(person.getLastName());
-			streetLabel.setText(person.getStreet());
-			postalCodeLabel.setText(Integer.toString(person.getPostalCode()));
-			cityLabel.setText(person.getCity());
 
-			birthdayLabel.setText(DateUtil.format(person.getBirthday()));
 		} else {
 			// Person is null, remove all the text.
 			firstNameLabel.setText("");
 			lastNameLabel.setText("");
-			streetLabel.setText("");
-			postalCodeLabel.setText("");
-			cityLabel.setText("");
-			birthdayLabel.setText("");
 		}
 	}
 
@@ -151,7 +139,7 @@ public class PersonOverviewController {
 	 */
 	@FXML
 	private void handleNewPerson() {
-		Person tempPerson = new Person();
+		KeyBind tempPerson = new KeyBind();
 		boolean okClicked = mainApp.showPersonEditDialog(tempPerson);
 		if (okClicked) {
 			mainApp.getPersonData().add(tempPerson);
@@ -164,7 +152,8 @@ public class PersonOverviewController {
 	 */
 	@FXML
 	private void handleEditPerson() {
-		Person selectedPerson = personTable.getSelectionModel().getSelectedItem();
+		KeyBind selectedPerson = personTable.getSelectionModel().getSelectedItem();
+
 		if (selectedPerson != null) {
 			boolean okClicked = mainApp.showPersonEditDialog(selectedPerson);
 			if (okClicked) {
@@ -193,8 +182,8 @@ public class PersonOverviewController {
 		System.out.println(message);
 		// chatTextField.setText(message);
 
-		addMessage(bot.getName() + " " + message);
-		if (bot != null) {
+		addMessage(bot.getName() + ": " + message);
+		if (bot != null && bot.isConnected()) {
 			bot.sendMessage("#TwitchCanPlayIt".toLowerCase(), message);
 		} else {
 			handleConnect();
@@ -212,8 +201,13 @@ public class PersonOverviewController {
 
 	public void handleConnect() {
 		if (bot == null) {
-			bot = new TwitchBot(this);
+			bot = new TwitchBot(this, mainApp);
 			bot.setVerbose(true);
+
+		}
+
+		if (!bot.isConnected()) {
+
 			try {
 				bot.connect("irc.twitch.tv", 6667, "oauth:6kl7e8tg2x6khrpx6mizmzewt8hr8h");
 			} catch (NickAlreadyInUseException e) {
@@ -235,108 +229,4 @@ public class PersonOverviewController {
 		}
 	}
 
-}
-
-class TwitchBot extends PircBot {
-
-	private PersonOverviewController controller;
-
-	public TwitchBot(PersonOverviewController controller) {
-		this.setName("TwitchCanPlayIt");
-		this.controller = controller;
-	}
-
-	public void onMessage(String channel, String sender, String login, String hostname, String message) {
-		controller.addMessage(sender + ": " + message);
-		// Change the section that says VK_[key] to correspond to your game
-		// controls, but don't get rid of the VK_
-		if (message.equalsIgnoreCase("up")) {
-			try {
-				Robot r = new Robot();
-				r.keyPress(KeyEvent.VK_W);
-				r.keyRelease(KeyEvent.VK_W);
-
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
-		}
-
-		if (message.equalsIgnoreCase("down")) {
-			try {
-				Robot r = new Robot();
-				r.keyPress(KeyEvent.VK_S);
-				r.keyRelease(KeyEvent.VK_S);
-
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
-		}
-
-		if (message.equalsIgnoreCase("left")) {
-			try {
-				Robot r = new Robot();
-				r.keyPress(KeyEvent.VK_A);
-				r.keyRelease(KeyEvent.VK_A);
-
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
-		}
-
-		if (message.equalsIgnoreCase("right")) {
-			try {
-				Robot r = new Robot();
-				r.keyPress(KeyEvent.VK_D);
-				r.keyRelease(KeyEvent.VK_D);
-
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
-		}
-
-		if (message.equalsIgnoreCase("b")) {
-			try {
-				Robot r = new Robot();
-				r.keyPress(KeyEvent.VK_Z);
-				r.keyRelease(KeyEvent.VK_Z);
-
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
-		}
-
-		if (message.equalsIgnoreCase("a")) {
-			try {
-				Robot r = new Robot();
-				r.keyPress(KeyEvent.VK_X);
-				r.keyRelease(KeyEvent.VK_X);
-
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
-		}
-
-		if (message.equalsIgnoreCase("start")) {
-			try {
-				Robot r = new Robot();
-				r.keyPress(KeyEvent.VK_E);
-				r.keyRelease(KeyEvent.VK_E);
-
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
-		}
-
-		if (message.equalsIgnoreCase("select")) {
-			try {
-				Robot r = new Robot();
-				r.keyPress(KeyEvent.VK_Q);
-				r.keyRelease(KeyEvent.VK_Q);
-
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
-		}
-
-	}
 }

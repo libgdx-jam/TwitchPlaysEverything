@@ -13,14 +13,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "persons")
 public class PersonListWrapper {
 
-    private List<Person> persons;
+    private List<KeyBind> persons;
 
     @XmlElement(name = "person")
-    public List<Person> getPersons() {
+    public List<KeyBind> getPersons() {
         return persons;
     }
 
-    public void setPersons(List<Person> persons) {
+    public void setPersons(List<KeyBind> persons) {
         this.persons = persons;
     }
 }
